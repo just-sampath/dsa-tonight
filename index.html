@@ -408,6 +408,108 @@ details.scen[open] .reveal-hint { display: none; }
 .fold-code > summary span { font-weight: 400; color: var(--ink-3); font-size: 0.85rem; }
 .fold-code > pre.code { margin: 0 8px 8px; }
 
+/* ===== lesson player ===== */
+.lesson { max-width: 46rem; margin: 0 auto; }
+.lesson-head { display: flex; align-items: center; gap: 10px; padding: 6px 0 4px; }
+.lesson-head .x { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 2px solid var(--ink); color: var(--ink); text-decoration: none; font-size: 1.6rem; line-height: 1; background: var(--paper-2); }
+.lh-mid { flex: 1; min-width: 0; display: grid; gap: 6px; }
+.lh-title { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.lh-title b { font-family: var(--f-display); font-size: 1.05rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lbar { height: 12px; border-radius: 99px; background: color-mix(in srgb, var(--ink) 10%, transparent); overflow: hidden; border: 1.5px solid var(--ink); }
+.lbar i { display: block; height: 100%; width: 0; background: var(--hlc); border-radius: 99px; transition: width 0.35s cubic-bezier(.3,1.4,.5,1); }
+.mode-btn { flex: none; font: inherit; font-weight: 700; font-size: 0.85rem; border: 2px solid var(--ink); background: var(--paper-2); color: var(--ink); border-radius: 99px; padding: 6px 12px; min-height: 40px; cursor: pointer; }
+.mode-btn[aria-pressed="true"] { background: var(--hlc); color: #1b2540; }
+.dots { display: flex; flex-wrap: wrap; gap: 5px; padding: 8px 0 12px 54px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--ink-3); cursor: pointer; }
+.dots i.past { background: var(--ink-3); }
+.dots i.on { background: var(--hlc); border-color: var(--ink); transform: scale(1.35); }
+.dots i.check, .dots i.end { border-radius: 3px; }
+.dots i.exam { border-color: var(--margin); }
+.step { background: var(--paper-2); border: 2px solid var(--ink); border-radius: 20px; padding: 18px 18px 22px; box-shadow: 5px 5px 0 var(--ink); min-width: 0; }
+.step h2 { font-size: clamp(1.4rem, 5vw, 1.9rem); letter-spacing: -0.02em; margin: 4px 0 12px; }
+.step-tag { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); }
+.step-tag::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--hlc); margin-right: 8px; border: 1.5px solid var(--ink); }
+.step-tag span { margin-left: auto; letter-spacing: 0.02em; }
+.step.in-r { animation: inR 0.32s cubic-bezier(.2,.9,.3,1.1); }
+.step.in-l { animation: inL 0.32s cubic-bezier(.2,.9,.3,1.1); }
+@keyframes inR { from { opacity: 0; transform: translateX(34px) rotate(1deg); } to { opacity: 1; transform: none; } }
+@keyframes inL { from { opacity: 0; transform: translateX(-34px) rotate(-1deg); } to { opacity: 1; transform: none; } }
+.step .prose { font-size: 1.04rem; }
+.step .prose > :first-child { margin-top: 0; }
+.step .widget, .step .answer { margin-top: 4px; }
+.step.k-learn .prose p { line-height: 1.7; }
+.bubble-row { display: flex; gap: 12px; align-items: flex-start; }
+.dot-pal { width: 64px; height: 64px; flex: none; animation: bob 2.6s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-5px) rotate(-3deg); } }
+.bubble { position: relative; background: color-mix(in srgb, var(--hlc) 22%, var(--paper-2)); border: 2px solid var(--ink); border-radius: 16px; padding: 12px 14px; font-size: 1.06rem; line-height: 1.6; min-width: 0; }
+.bubble .hand { display: block; font-family: var(--f-hand); font-size: 1.15rem; color: var(--margin); margin-bottom: 2px; }
+.takeaways { margin-top: 16px; border: 2px dashed var(--line); border-radius: 14px; padding: 12px 14px; }
+.takeaways h3 { font-size: 1.02rem; margin-bottom: 6px; }
+.takeaways ol, .takeaways ul { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.soft { color: var(--ink-2); font-size: 0.98rem; margin: 12px 0; }
+.mini-h { font-size: 1.1rem; margin: 18px 0 10px; }
+.finish { margin-top: 18px; text-align: center; }
+.btn.big { font-size: 1.08rem; padding: 14px 24px; min-height: 54px; border-radius: 14px; box-shadow: 4px 4px 0 var(--ink); }
+.lesson-nav { position: sticky; bottom: 0; z-index: 20; display: grid; grid-template-columns: 1fr 2fr; gap: 10px; padding: 14px 0 calc(12px + env(safe-area-inset-bottom, 0px)); margin-top: 6px; background: linear-gradient(transparent, var(--paper) 30%); }
+.lesson-nav .btn { min-height: 52px; font-size: 1.05rem; }
+.lesson-nav .btn[hidden] { display: none; }
+.lesson-nav .btn:only-child, .lesson-nav #prevStep:has(+ #nextStep[hidden]) { grid-column: 1 / -1; }
+.all-link { text-align: center; font-size: 0.88rem; color: var(--ink-3); margin: 6px 0 24px; }
+.all-link a { color: var(--ink-2); }
+body.in-lesson .toast { top: calc(12px + env(safe-area-inset-top, 0px)); bottom: auto; transform: translateX(-50%) translateY(-180%); }
+body.in-lesson .toast.show { transform: translateX(-50%) translateY(0); }
+.starbox { display: inline-flex; align-items: center; gap: 4px; font-weight: 800; font-family: var(--f-display); padding: 0 6px; }
+.starbox svg { width: 22px; height: 22px; }
+.starbox.pop svg { animation: starpop 0.6s cubic-bezier(.3,1.8,.5,1); }
+@keyframes starpop { 40% { transform: scale(1.8) rotate(25deg); } }
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
+.confetti i { position: absolute; top: -20px; width: 10px; height: 14px; border-radius: 2px; border: 1px solid rgba(0,0,0,.25); animation: fall linear forwards; }
+@keyframes fall { to { top: 110%; transform: translateX(40px) rotate(720deg); } }
+@media (max-width: 520px) { .step { padding: 14px 13px 18px; border-radius: 16px; box-shadow: 3px 3px 0 var(--ink); } .dots { padding-left: 0; } .dot-pal { width: 48px; height: 48px; } .lh-title .chip { display: none; } }
+@media (max-height: 520px) { .lesson-nav { padding-top: 8px; } .lesson-nav .btn { min-height: 44px; } .dots { display: none; } }
+@media (min-width: 1100px) { .lesson { max-width: 52rem; } }
+
+/* ===== home v2 ===== */
+.hero2 { display: flex; gap: 18px; align-items: flex-start; padding: 22px 0 6px; --hlc: var(--hl-21); }
+.hero2 .dot-pal { width: 92px; height: 92px; }
+.hero2 h1 { font-size: clamp(2rem, 7vw, 3.4rem); font-weight: 800; letter-spacing: -0.03em; margin-top: 4px; }
+.hero2 .lead { font-size: 1.08rem; color: var(--ink-2); margin: 10px 0 16px; max-width: 34rem; }
+.mode-pick { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; font-size: 0.92rem; }
+.mode-pick > span { color: var(--ink-3); font-weight: 600; }
+.mode-pick button { font: inherit; font-weight: 600; border: 2px solid var(--ink); background: transparent; color: var(--ink); border-radius: 99px; padding: 6px 14px; min-height: 40px; cursor: pointer; }
+.mode-pick button.on { background: var(--ink); color: var(--paper-2); }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+.stats > div { background: var(--paper-2); border: 2px solid var(--ink); border-radius: 14px; padding: 10px 12px; display: grid; }
+.stats b { font-family: var(--f-display); font-size: 1.7rem; line-height: 1.1; }
+.stats span { font-size: 0.82rem; color: var(--ink-3); }
+.path { display: grid; gap: 14px; }
+.path-unit { background: var(--paper-2); border: 2px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: 4px 4px 0 var(--ink); }
+.pu-head { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--hlc); color: #1b2540; }
+.pu-head .no { font-family: var(--f-display); font-weight: 800; font-size: 1.4rem; }
+.pu-head .nm { font-weight: 700; flex: 1; }
+.pu-head .cnt { font-weight: 700; font-size: 0.9rem; background: rgba(255,255,255,.55); border-radius: 99px; padding: 2px 10px; }
+.stones { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; }
+.stone { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 8px; min-height: 44px; border-radius: 99px; border: 2px solid var(--line); text-decoration: none; color: var(--ink); background: var(--paper); font-size: 0.95rem; }
+.stone .ic { width: 26px; height: 26px; border-radius: 50%; border: 2px dashed var(--ink-3); display: grid; place-items: center; flex: none; }
+.stone .ic svg { width: 16px; height: 16px; }
+.stone b { font-weight: 600; }
+.stone:hover { border-color: var(--ink); }
+.stone.done { background: color-mix(in srgb, var(--hlc) 30%, var(--paper-2)); border-color: var(--ink); }
+.stone.done .ic { border: none; background: var(--ink); color: var(--paper-2); }
+.stone.now { border-color: var(--ink); box-shadow: 0 0 0 3px var(--hlc); }
+.stone.now .ic { border-color: var(--ink); background: var(--hlc); animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(1.15); } }
+.howto { margin-top: 22px; background: var(--paper-2); border: 2px dashed var(--line); border-radius: 14px; padding: 4px 14px; }
+.howto summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
+.howto ol { margin: 0 0 8px; padding-left: 1.3em; display: grid; gap: 6px; }
+.tools2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 30px; }
+.tools2 a { display: grid; grid-template-columns: 28px 1fr; column-gap: 10px; align-items: center; padding: 12px; border: 2px solid var(--ink); border-radius: 14px; background: var(--paper-2); color: var(--ink); text-decoration: none; min-height: 60px; }
+.tools2 a svg { width: 24px; height: 24px; grid-row: span 2; }
+.tools2 a b { font-size: 0.95rem; }
+.tools2 a span { font-size: 0.8rem; color: var(--ink-3); }
+@media (min-width: 900px) { .tools2 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .path { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .hero2 .dot-pal { width: 60px; height: 60px; } .hero2 { gap: 10px; } .stats b { font-size: 1.4rem; } }
+
 </style>
 <div id="app"><main style="padding:40px 16px;font-family:system-ui">Loading your study notes...</main></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -9959,8 +10061,10 @@ window.DSA = window.DSA || {}; window.DSA.alt = {"avl": [{"java": "// AVL tree i
     var nav = [["#home", "home", "Home"], ["#cheat", "bolt", "10-min sheet"], ["#quiz", "quiz", "Quiz"], ["#long", "pen", "15 marks"]];
     return '<header class="topbar"><div class="topbar-in"><a class="brand" href="#home" aria-label="DSA Tonight home">' + logo() + '<span class="brand-text">DSA Tonight</span><small>exam eve edition</small></a><nav class="topnav" aria-label="Main">' +
       nav.map(function (n) { return '<a href="' + n[0] + '" class="' + (active === n[0].slice(1) ? "on" : "") + '">' + ICON[n[1]] + '<span class="lbl">' + n[2] + "</span></a>"; }).join("") +
+      '<span class="starbox" title="Stars: one for each question you get right first time">' + STAR + '<b id="starCount">' + starCount() + "</b></span>" +
       '<button class="icon-btn" type="button" id="themeBtn" aria-label="Switch light or dark">' + ICON.moon + "</button></nav></div></header>";
   }
+  var STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z" fill="var(--hl-21)" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/></svg>';
   function logo() { return '<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="9" width="12" height="14" rx="3" fill="var(--hl-22)" stroke="var(--ink)" stroke-width="2"/><rect x="18" y="9" width="12" height="14" rx="3" fill="var(--hl-23)" stroke="var(--ink)" stroke-width="2"/><path d="M11 16h9" stroke="var(--ink)" stroke-width="2.2"/><path d="M18 13l3 3-3 3" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linejoin="round"/></svg>'; }
 
   function wrapTables(html) { return foldCode(html).replace(/<table/g, '<div class="tbl-wrap"><table').replace(/<\/table>/g, "</table></div>"); }
@@ -10030,37 +10134,35 @@ window.DSA = window.DSA || {}; window.DSA.alt = {"avl": [{"java": "// AVL tree i
   /* ---------------- views ---------------- */
   function home() {
     var total = T.length, nDone = T.filter(function (t) { return done[t.id]; }).length;
-    var mins = T.reduce(function (a, t) { return a + (t.minutes || 0); }, 0);
-    var next = T.filter(function (t) { return !done[t.id]; })[0];
-    var h = '<section class="hero"><div><div class="eyebrow">Data Structures, end semester</div><h1>Exam tomorrow?<br>Start <span class="hl u21">here</span>.</h1>' +
-      '<p class="lead">Every topic on your syllabus, explained from zero, with demos you can poke and a model answer laid out the way an 8-mark or 15-mark answer should be written.</p>' +
-      '<span class="hero-note">You don\'t need the classes you missed. You need tonight.</span>' +
-      '<div class="cta-row">' + (next ? '<a class="btn primary" href="#' + next.id + '">' + (nDone ? "Continue: " + esc(next.title) : "Start with topic 1") + "</a>" : '<a class="btn primary" href="#quiz">All done, take the quiz</a>') + '<a class="btn" href="#cheat">10-minute cheat sheet</a></div></div>' +
-      '<div class="hero-art">' + heroArt() + "</div></section>";
-    h += '<div class="progress-strip"><b>' + nDone + " of " + total + ' topics done</b><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" aria-valuenow="' + nDone + '"><i style="width:' + (total ? nDone / total * 100 : 0) + '%"></i></div><span style="font-size:.88rem;color:var(--ink-3)">About ' + Math.round(mins / 60 * 10) / 10 + " hours for everything. Short on time? Use the plan below.</span></div>";
+    var left = T.filter(function (t) { return !done[t.id]; });
+    var next = left[0];
+    var minsLeft = left.reduce(function (a, t) { return a + (quick ? Math.max(8, Math.round((t.minutes || 20) / 3)) : (t.minutes || 20)); }, 0);
+    var hrs = Math.round(minsLeft / 60 * 2) / 2;
+    var started = next && stepState[next.id];
+    var h = '<section class="hero2">' + mascot(nDone ? "" : "wow") + '<div><div class="eyebrow">DSA end-sem, tomorrow</div><h1>One small step at a time.</h1>' +
+      '<p class="lead">' + (nDone ? "You've done " + nDone + " of " + total + " topics. Keep going, you're doing great." : "Never been to class? That's fine. Every card starts from zero.") + "</p>" +
+      '<div class="cta-row">' + (next ? '<a class="btn primary big" href="#' + next.id + '">' + (nDone || started ? "Continue: " + esc(next.title) : "Start the first topic") + "</a>" : '<a class="btn primary big" href="#quiz">All done! Take the quiz</a>') + "</div>" +
+      '<div class="mode-pick" role="group" aria-label="How much time do you have"><span>Time tonight?</span><button type="button" data-quick="0" class="' + (quick ? "" : "on") + '" aria-pressed="' + !quick + '">Plenty: full lessons</button><button type="button" data-quick="1" class="' + (quick ? "on" : "") + '" aria-pressed="' + quick + '">Short: quick mode</button></div>' +
+      "</div></section>";
 
-    h += '<div class="section-title"><h2>Tonight\'s plan</h2><span class="hand">do it in this order</span></div><div class="plan">' +
-      plan(1, "u21", "Read one exam answer first", "Open any topic, jump to its 8-mark answer and see what a full answer looks like. Then learn backwards.") +
-      plan(2, "u23", "Easy marks: units 22 and 23", "Linked lists, stack, queue, infix to postfix. Very predictable questions and quick to learn.") +
-      plan(3, "u24", "Big marks: unit 24 and 25", "AVL rotations, B-tree splits, hashing, BFS/DFS, Prim and Kruskal. Practise one example each in the demos.") +
-      plan(4, "u22", "Unit 21 theory", "Structures, malloc/calloc, Big-O. Mostly definitions and small programs.") +
-      plan(5, "u25", "Last hour: revise", "Cheat sheet, then the quiz. Re-read the 15-mark page before sleeping.") + "</div>";
+    h += '<div class="stats"><div><b>' + nDone + "</b><span>of " + total + ' topics</span></div><div><b class="star-b">' + starCount() + '</b><span>stars earned</span></div><div><b>' + (next ? "~" + hrs + "h" : "0h") + '</b><span>' + (quick ? "left in quick mode" : "left in full lessons") + "</span></div></div>";
 
-    h += '<div class="section-title"><h2>Your syllabus</h2><span class="hand">tap a topic</span></div><div class="units">';
+    h += '<div class="section-title"><h2>Your path</h2><span class="hand">tap any topic</span></div><div class="path">';
     UNITS.forEach(function (u) {
-      var ts = unitTopics(u.no);
-      h += '<article class="unit-card u' + u.no + '"><div class="unit-head"><span class="no">' + u.no + '</span><span class="nm">' + esc(u.name) + '</span><span class="mk">8 marks</span></div><ul class="topic-list">';
-      ts.forEach(function (t) { h += '<li><a href="#' + t.id + '"><span class="tick' + (done[t.id] ? " done" : "") + '">' + (done[t.id] ? ICON.check : "") + '</span><span class="tt"><b>' + esc(t.title) + "</b><span>" + esc(t.tagline || "") + '</span></span><span class="min">' + (t.minutes || "") + " min</span></a></li>"; });
-      if (!ts.length) h += '<li style="padding:10px;color:var(--ink-3)">Coming soon</li>';
-      h += "</ul></article>";
+      var ts = unitTopics(u.no), d = ts.filter(function (t) { return done[t.id]; }).length;
+      h += '<div class="path-unit u' + u.no + '"><div class="pu-head"><span class="no">' + u.no + '</span><span class="nm">' + esc(u.short) + '</span><span class="cnt">' + d + "/" + ts.length + '</span></div><div class="stones">';
+      ts.forEach(function (t) { h += '<a class="stone' + (done[t.id] ? " done" : "") + (next && next.id === t.id ? " now" : "") + '" href="#' + t.id + '"><span class="ic">' + (done[t.id] ? ICON.check : "") + "</span><b>" + esc(t.title) + "</b></a>"; });
+      h += "</div></div>";
     });
     h += "</div>";
 
-    h += '<div class="section-title"><h2>Before the exam</h2></div><div class="tools">' +
-      tool("#long", "15-mark questions", "The long questions most likely to come, and which answers to combine.", "big marks") +
-      tool("#write", "How to write answers", "Layout, diagrams, timing. How examiners give marks.", "read once") +
-      tool("#cheat", "10-minute cheat sheet", "Every key fact on one page for the bus ride.", "last look") +
-      tool("#quiz", "Quiz and flashcards", "Check yourself unit by unit.", "") + "</div>";
+    h += '<details class="howto"><summary>How should I plan tonight?</summary><ol><li><b>Units 22 and 23 first.</b> Linked lists, stack, queue, postfix. Easy, predictable marks.</li><li><b>Then units 24 and 25.</b> Trees, AVL, B-tree, hashing, BFS/DFS, Prim, Kruskal. Do one example in each demo.</li><li><b>Unit 21 last.</b> Mostly definitions.</li><li><b>Before sleeping:</b> the 10-minute sheet and the quiz.</li></ol><p>Short on time? Switch to quick mode above. Each topic then shows only the idea, a demo and the exam answer.</p></details>';
+
+    h += '<div class="section-title"><h2>When you need them</h2></div><div class="tools2">' +
+      '<a href="#cheat">' + ICON.bolt + "<b>10-min sheet</b><span>last look</span></a>" +
+      '<a href="#quiz">' + ICON.quiz + "<b>Quiz and flashcards</b><span>test yourself</span></a>" +
+      '<a href="#long">' + ICON.pen + "<b>15-mark questions</b><span>big marks</span></a>" +
+      '<a href="#write">' + ICON.pen + "<b>How to write answers</b><span>read once</span></a></div>";
     return topbar("home") + '<main class="view">' + h + "</main>";
   }
   function plan(n, u, t, d) { return '<div class="plan-step ' + u + '"><b class="num">' + n + '</b><span class="t">' + t + '</span><span class="d">' + d + "</span></div>"; }
@@ -10104,6 +10206,152 @@ window.DSA = window.DSA || {}; window.DSA.alt = {"avl": [{"java": "// AVL tree i
     return '<div class="mcq" data-mcq="' + esc(key) + '" data-answer="' + q.answer + '"><div class="qn">' + q.q + '</div><div class="opts">' + q.options.map(function (o, k) { return '<button type="button" class="opt" data-k="' + k + '">' + String.fromCharCode(65 + k) + ". " + o + "</button>"; }).join("") + '</div><div class="why" hidden>' + (q.why || "") + "</div></div>";
   }
 
+  /* ---------------- lesson player: one small step at a time ---------------- */
+  var stepState = {};
+  try { stepState = JSON.parse(localStorage.getItem("dsa-step") || "{}") || {}; } catch (e) { stepState = {}; }
+  function saveStep() { try { localStorage.setItem("dsa-step", JSON.stringify(stepState)); } catch (e) { /* ignore */ } }
+  var quick = false;
+  try { quick = localStorage.getItem("dsa-quick") === "1"; } catch (e) { /* ignore */ }
+  var stars = {};
+  try { stars = JSON.parse(localStorage.getItem("dsa-stars") || "{}") || {}; } catch (e) { stars = {}; }
+  function starCount() { return Object.keys(stars).length; }
+  var CHEERS = ["Nice one!", "Spot on!", "You've got this.", "Correct!", "Look at you go.", "Exactly right."];
+  var NUDGES = ["Close. The right one is in green.", "Not quite. Read the green one, it'll stick now.", "Almost. Mistakes tonight mean marks tomorrow."];
+
+  function mascot(mood) {
+    var mouth = mood === "wow" ? '<ellipse cx="32" cy="41" rx="5" ry="6" fill="#1b2540"/>' : '<path d="M24 39 q8 8 16 0" fill="none" stroke="#1b2540" stroke-width="3" stroke-linecap="round"/>';
+    return '<svg class="dot-pal" viewBox="0 0 64 64" aria-hidden="true"><path d="M50 30 L62 30" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><path d="M57 25 l5 5 -5 5" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="30" cy="32" r="22" fill="var(--hlc, var(--hl-21))" stroke="var(--ink)" stroke-width="3"/><circle cx="23" cy="28" r="3.4" fill="#1b2540"/><circle cx="37" cy="28" r="3.4" fill="#1b2540"/>' + mouth + '<circle cx="17" cy="36" r="3" fill="#ff8fc4" opacity=".6"/><circle cx="43" cy="36" r="3" fill="#ff8fc4" opacity=".6"/></svg>';
+  }
+
+  function splitLearn(html) {
+    var parts = String(html || "").split(/<h3>/), out = [];
+    var lead = parts.shift();
+    if (lead && lead.replace(/<[^>]+>|\s/g, "").length) out.push({ title: "First, the basics", html: lead });
+    parts.forEach(function (p) {
+      var k = p.indexOf("</h3>");
+      out.push({ title: k >= 0 ? p.slice(0, k).replace(/<[^>]+>/g, "") : "Keep going", html: k >= 0 ? p.slice(k + 5) : p });
+    });
+    return out;
+  }
+
+  function lessonSteps(t) {
+    var s = [], quiz = (t.quiz || []).map(function (q, k) { return { q: q, k: k }; }), qi = 0;
+    s.push({ kind: "idea", title: "The big idea", tag: "Start here" });
+    if (!quick) {
+      var chunks = splitLearn(t.learn);
+      chunks.forEach(function (c, i) {
+        s.push({ kind: "learn", title: c.title, html: c.html, tag: "Learn " + (i + 1) + " of " + chunks.length });
+        if ((i + 1) % 3 === 0 && i < chunks.length - 1 && qi < quiz.length) s.push({ kind: "check", title: "Quick check", q: quiz[qi++], tag: "Your turn" });
+      });
+    }
+    if (t.widget) s.push({ kind: "try", title: "Try it yourself", tag: "Play" });
+    s.push({ kind: "exam", title: "How to write it in the exam", tag: "Exam answer" });
+    if (!quick && t.scenarios && t.scenarios.length) s.push({ kind: "scen", title: "Exam-style questions", tag: "Practice" });
+    s.push({ kind: "end", title: "Wrap up", tag: "Last step", rest: quiz.slice(qi) });
+    return s;
+  }
+
+  function stepBody(t, st) {
+    if (st.kind === "idea") {
+      return '<div class="bubble-row">' + mascot() + '<div class="bubble"><span class="hand">Think of it like this</span>' + (t.analogy || "") + "</div></div>" +
+        ((t.remember || []).length ? '<div class="takeaways"><h3>By the end of this topic you will know</h3><ol>' + t.remember.slice(0, 3).map(function (r) { return "<li>" + r + "</li>"; }).join("") + "</ol></div>" : "") +
+        '<p class="soft">' + (quick ? "Quick mode: the idea, a demo, then the exam answer." : "Small steps. Tap <b>Next</b> when a card makes sense. No rush.") + "</p>";
+    }
+    if (st.kind === "learn") return '<div class="prose">' + wrapTables(st.html) + "</div>";
+    if (st.kind === "check") return '<p class="soft">One question to lock in what you just read.</p>' + mcq(st.q.q, t.id + "-" + st.q.k);
+    if (st.kind === "try") {
+      var h = '<div class="widget" data-widget="' + esc(t.widget) + '"><div class="w-intro">' + (t.widgetIntro || "") + '</div><div class="w-body"></div></div>';
+      if (t.code && t.code.length) h += '<div class="block" id="s-code"><details class="codebox"><summary><span class="cb-t">Code</span><span class="cb-n">optional, in C, Java or Python</span><span class="cb-hint">You can skip this. The exam answer on the next card has what you need to write.</span></summary>' + langTabs() + '<div class="code-list">' + t.code.map(function (c, k) { return codeCard(t, k); }).join("") + "</div></details></div>";
+      return h;
+    }
+    if (st.kind === "exam") {
+      var e = '<p class="soft">This is what a full-marks answer looks like. Write it in this order: definition, diagram, steps, example, complexity.</p>';
+      if (t.exam15) e += '<div class="ans-tabs" role="tablist"><button type="button" class="on" data-ans="8" role="tab" aria-selected="true">8-mark answer</button><button type="button" data-ans="15" role="tab" aria-selected="false">15-mark answer</button></div>';
+      e += '<div class="answer" data-pane="8"><div class="q-label">Ans.<br>8M</div>' + wrapTables(t.exam8) + "</div>";
+      if (t.exam15) e += '<div class="answer" data-pane="15" hidden><div class="q-label">Ans.<br>15M</div>' + wrapTables(t.exam15) + "</div>";
+      return e;
+    }
+    if (st.kind === "scen") return '<p class="soft">Exams love these. Think for a minute, then tap to see the answer.</p>' + t.scenarios.map(function (s) { return '<details class="scen"><summary>' + s.q + '<span class="reveal-hint">Tap to see the answer</span></summary><div class="scen-a prose">' + wrapTables(s.a) + "</div></details>"; }).join("");
+    if (st.kind === "end") {
+      var r = (t.remember && t.remember.length ? '<div class="takeaways"><h3>Remember these</h3><ul class="remember">' + t.remember.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul></div>" : "");
+      if (st.rest.length) r += '<h3 class="mini-h">' + (st.rest.length === 1 ? "One last question" : st.rest.length + " last questions") + "</h3>" + st.rest.map(function (q) { return mcq(q.q, t.id + "-" + q.k); }).join("");
+      r += '<div class="finish">' + (done[t.id] ? '<p class="soft">You already finished this one.</p>' : "") + '<button class="btn primary big" type="button" id="finishBtn">' + (done[t.id] ? "Done, next topic" : "I finished this topic") + "</button></div>";
+      return r;
+    }
+    return "";
+  }
+
+  function lessonView(t) {
+    var steps = lessonSteps(t), cur = Math.min(stepState[t.id] || 0, steps.length - 1);
+    var list = T, i = list.indexOf(t), next = list[i + 1];
+    var h = '<div class="lesson u' + t.unit + '" data-steps="' + steps.length + '" data-cur="' + cur + '">';
+    h += '<div class="lesson-head"><a class="x" href="#home" aria-label="Back to all topics">&times;</a><div class="lh-mid"><div class="lh-title"><span class="chip unit">Unit ' + t.unit + "</span><b>" + esc(t.title) + '</b></div><div class="lbar" role="progressbar" aria-valuemin="1" aria-valuemax="' + steps.length + '" aria-valuenow="' + (cur + 1) + '"><i></i></div></div>' +
+      '<button type="button" class="mode-btn" id="modeBtn" aria-pressed="' + quick + '" title="Quick mode shows only the idea, a demo and the exam answer">' + (quick ? "Quick" : "Full") + "</button></div>";
+    h += '<div class="dots" aria-hidden="true">' + steps.map(function (s, k) { return '<i class="' + s.kind + '" data-dot="' + k + '"></i>'; }).join("") + "</div>";
+    h += '<div class="stage">' + steps.map(function (s, k) {
+      return '<section class="step k-' + s.kind + '" data-step="' + k + '"' + (k === cur ? "" : " hidden") + ' aria-label="Step ' + (k + 1) + " of " + steps.length + '"><div class="step-tag">' + esc(s.tag) + '<span>' + (k + 1) + " / " + steps.length + "</span></div><h2>" + esc(s.title) + "</h2>" + stepBody(t, s) + "</section>";
+    }).join("") + "</div>";
+    h += '<div class="lesson-nav"><button class="btn" type="button" id="prevStep">Back</button><button class="btn primary" type="button" id="nextStep">Next</button></div>';
+    h += '<p class="all-link"><a href="#' + t.id + '/all">See this whole topic on one page</a>' + (next ? ' &middot; <a href="#' + next.id + '">Skip to ' + esc(next.title) + "</a>" : "") + "</p>";
+    h += "</div>";
+    return topbar("") + '<main class="view lesson-view">' + h + "</main>";
+  }
+
+  function confetti() {
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var box = document.createElement("div"); box.className = "confetti"; box.setAttribute("aria-hidden", "true");
+    var cols = ["--hl-21", "--hl-22", "--hl-23", "--hl-24", "--hl-25"];
+    for (var k = 0; k < 60; k++) { var p = document.createElement("i"); p.style.left = Math.random() * 100 + "%"; p.style.background = "var(" + cols[k % 5] + ")"; p.style.animationDelay = Math.random() * 0.4 + "s"; p.style.animationDuration = 1.6 + Math.random() * 1.4 + "s"; p.style.transform = "rotate(" + Math.random() * 360 + "deg)"; box.appendChild(p); }
+    document.body.appendChild(box); setTimeout(function () { box.remove(); }, 3600);
+  }
+  function popStar(from) {
+    var s = document.getElementById("starCount"); if (s) { s.textContent = starCount(); var b = s.parentNode; b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); }
+  }
+  window.__dsaAnswer = function (key, right) {
+    if (right && !stars[key]) { stars[key] = 1; try { localStorage.setItem("dsa-stars", JSON.stringify(stars)); } catch (e) { /* ignore */ } popStar(); toast("+1 star. " + CHEERS[Math.floor(Math.random() * CHEERS.length)]); }
+    else if (right) toast(CHEERS[Math.floor(Math.random() * CHEERS.length)]);
+    else toast(NUDGES[Math.floor(Math.random() * NUDGES.length)]);
+  };
+
+  function bindLesson(id) {
+    var L = app.querySelector(".lesson"); if (!L) return;
+    var t = byId[id], n = +L.getAttribute("data-steps"), cur = +L.getAttribute("data-cur");
+    var steps = L.querySelectorAll(".step"), dots = L.querySelectorAll("[data-dot]"), bar = L.querySelector(".lbar i"), prev = document.getElementById("prevStep"), nxt = document.getElementById("nextStep");
+    var list = T, next = list[list.indexOf(t) + 1];
+    function show(k, dir) {
+      cur = Math.max(0, Math.min(n - 1, k));
+      steps.forEach(function (s, j) { s.hidden = j !== cur; s.classList.remove("in-l", "in-r"); if (j === cur && dir) { void s.offsetWidth; s.classList.add(dir > 0 ? "in-r" : "in-l"); } });
+      dots.forEach(function (d, j) { d.classList.toggle("on", j === cur); d.classList.toggle("past", j < cur); });
+      bar.style.width = ((cur + 1) / n * 100) + "%";
+      L.querySelector(".lbar").setAttribute("aria-valuenow", cur + 1);
+      prev.disabled = cur === 0;
+      var last = cur === n - 1;
+      nxt.hidden = last;
+      var kind = steps[cur].className.match(/k-(\w+)/)[1];
+      nxt.textContent = kind === "idea" ? "Let's start" : kind === "check" ? "Next" : kind === "exam" ? "Got it" : (cur === n - 2 ? "Last step" : "Next");
+      stepState[id] = cur; saveStep();
+      if (dir) { var top = L.getBoundingClientRect().top + window.scrollY - 70; if (window.scrollY > top) window.scrollTo(0, Math.max(0, top)); }
+    }
+    prev.addEventListener("click", function () { show(cur - 1, -1); });
+    nxt.addEventListener("click", function () { show(cur + 1, 1); });
+    dots.forEach(function (d) { d.addEventListener("click", function () { var k = +d.getAttribute("data-dot"); show(k, k > cur ? 1 : -1); }); });
+    var mb = document.getElementById("modeBtn");
+    if (mb) mb.addEventListener("click", function () { quick = !quick; try { localStorage.setItem("dsa-quick", quick ? "1" : "0"); } catch (e) { /* ignore */ } stepState[id] = 0; saveStep(); route(); toast(quick ? "Quick mode: idea, demo, exam answer" : "Full lesson: every card"); });
+    var fb = document.getElementById("finishBtn");
+    if (fb) fb.addEventListener("click", function () {
+      var was = done[id]; done[id] = true; saveDone(); stepState[id] = 0; saveStep();
+      if (!was) { confetti(); var nd = T.filter(function (x) { return done[x.id]; }).length; toast("Topic done! " + nd + " of " + T.length + "."); }
+      setTimeout(function () { location.hash = next ? "#" + next.id : "#quiz"; }, was ? 0 : 900);
+    });
+    if (!lessonKeys) { lessonKeys = true; document.addEventListener("keydown", function (e) {
+      if (!app.querySelector(".lesson") || /INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ""))) return;
+      if (e.key === "ArrowRight") { var b = document.getElementById("nextStep"); if (b && !b.hidden) b.click(); }
+      if (e.key === "ArrowLeft") { var p = document.getElementById("prevStep"); if (p && !p.disabled) p.click(); }
+    }); }
+    show(cur, 0);
+  }
+  var lessonKeys = false;
+
   function cheat() {
     var h = '<div class="topic-hero"><div class="eyebrow">Last look before the exam</div><h1><span class="hl u21">10-minute</span> cheat sheet</h1><div class="tag">The facts examiners love, unit by unit. Tap a topic name to open it.</div></div>';
     UNITS.forEach(function (u) {
@@ -10145,7 +10393,7 @@ window.DSA = window.DSA || {}; window.DSA.alt = {"avl": [{"java": "// AVL tree i
     var withLong = T.filter(function (t) { return t.exam15; });
     h += '<div class="playbook">';
     withLong.forEach(function (t) {
-      h += '<div class="pb-item u' + t.unit + '"><span class="u">' + t.unit + '</span><span class="q">' + esc(t.title) + ': full long answer</span><span class="how">' + esc(t.tagline || "") + '</span><span class="links"><a href="#' + t.id + '" data-open15="1">Open the 15-mark answer</a></span></div>';
+      h += '<div class="pb-item u' + t.unit + '"><span class="u">' + t.unit + '</span><span class="q">' + esc(t.title) + ': full long answer</span><span class="how">' + esc(t.tagline || "") + '</span><span class="links"><a href="#' + t.id + '/all" data-open15="1">Open the 15-mark answer</a></span></div>';
     });
     PAIRS.forEach(function (p) {
       var links = p[2].filter(function (id) { return byId[id]; }).map(function (id) { return '<a href="#' + id + '">' + esc(byId[id].title) + "</a>"; }).join(" + ");
@@ -10182,12 +10430,14 @@ window.DSA = window.DSA || {}; window.DSA.alt = {"avl": [{"java": "// AVL tree i
   var lastRoute = null;
   function route() {
     var id = (location.hash || "#home").slice(1) || "home";
-    var html;
+    var html, all = false;
+    if (/\/all$/.test(id)) { all = true; id = id.replace(/\/all$/, ""); }
     if (id === "home") html = home(); else if (id === "cheat") html = cheat(); else if (id === "quiz") html = quiz(); else if (id === "long") html = longQs(); else if (id === "write") html = writeView();
-    else if (byId[id]) html = topicView(byId[id]); else { id = "home"; html = home(); }
+    else if (byId[id]) html = all ? topicView(byId[id]) : lessonView(byId[id]); else { id = "home"; html = home(); }
     app.innerHTML = html;
     document.title = (byId[id] ? byId[id].title + " | " : "") + "DSA Tonight";
-    bind(id);
+    bind(id); bindLesson(id);
+    document.body.classList.toggle("in-lesson", !!app.querySelector(".lesson"));
     if (lastRoute !== id) window.scrollTo(0, 0);
     if (pendingJump) { var target = document.getElementById("s-" + pendingJump); pendingJump = null; if (target) target.scrollIntoView(); }
     lastRoute = id;
@@ -10196,6 +10446,7 @@ window.DSA = window.DSA || {}; window.DSA.alt = {"avl": [{"java": "// AVL tree i
   function toast(t) { var x = document.getElementById("toast"); x.textContent = t; x.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(function () { x.classList.remove("show"); }, 1800); }
 
   function bind(id) {
+    app.querySelectorAll("[data-quick]").forEach(function (b) { b.addEventListener("click", function () { quick = b.getAttribute("data-quick") === "1"; try { localStorage.setItem("dsa-quick", quick ? "1" : "0"); } catch (e) { /* ignore */ } route(); }); });
     var tb = document.getElementById("themeBtn");
     if (tb) tb.addEventListener("click", function () {
       var r = document.documentElement, cur = r.getAttribute("data-theme");
@@ -10243,6 +10494,7 @@ window.DSA = window.DSA || {}; window.DSA.alt = {"avl": [{"java": "// AVL tree i
           if (k !== ans) o.classList.add("wrong");
           var w = q.querySelector(".why"); if (w) w.hidden = false;
           score.n++; if (k === ans) score.r++;
+          if (window.__dsaAnswer && q.closest(".lesson, .layout")) window.__dsaAnswer(q.getAttribute("data-mcq"), k === ans);
           var sEl = document.getElementById("qScore"); if (sEl) sEl.textContent = score.r + " / " + score.n;
         });
       });
