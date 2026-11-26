@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSA Tonight</title>
+<script>
+  // Project site: https://<user>.github.io/dsa-tonight/
+  // Send unknown paths back to the app. Topics live in the hash.
+  var parts = location.pathname.split("/").filter(Boolean);
+  var base = parts.length ? "/" + parts[0] + "/" : "/";
+  location.replace(base + (location.hash || "#home"));
+</script>
+</head>
+<body>
+  <p><a href="./">DSA Tonight</a></p>
+</body>
+</html>
